@@ -11,5 +11,3 @@ try {
     echo "Kon geen verbinding maken.";
 }
 ?>
-
-test
