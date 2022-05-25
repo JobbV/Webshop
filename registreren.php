@@ -1,6 +1,6 @@
 <?php
 include "registreren.html";
-// include "bibliotheek/mailen.php";
+include "bibliotheek/mailen.php";
 include "DBConfig.php";
 
 if(isset($_POST["submit"])){
@@ -23,7 +23,7 @@ if(isset($_POST["submit"])){
     if($resultaat){
         $melding = "Dit e-mailadres is al geregistreerd.";
     } else {
-        $sql = "INSERT INTO klant (ID, voornaam, achternaam, straat, postcode, woonplaats, email, wachtwoord, rol) values (null,?,?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO klant (ID, voornaam, achternaam, straat, postcode, woonplaats, email, wachtwoord, rol values (null,?,?,?,?,?,?,?,?)";
         $stmt = $verbinding->prepare($sql);
         try {
             $stmt->execute(array(
@@ -42,6 +42,12 @@ if(isset($_POST["submit"])){
             $e->getMessage();
         }
         echo "<div id='melding'> $melding </div>";
+
+        echo "<div id='melding'> $melding </div>";
+        // Bevestiging per e-mail
+        $onderwerp = "Nieuw account";
+        $bericht = "Beste $klant, Uw account is aangemaakt.";
+        mailen($email, $klant, $onderwerp, $bericht);
     }
 }
 
